@@ -23,7 +23,7 @@ public class LevelManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void SetPlayerSpawnPoint()
+    public void SetPlayerSpawnPoint()
     {
         GameObject spawnPointObj = GameObject.Find(spawnPointName);
 
