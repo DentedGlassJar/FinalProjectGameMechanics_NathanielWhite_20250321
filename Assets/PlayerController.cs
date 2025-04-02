@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     // The variable that stores the rigidbody of this player gameObject
     private Rigidbody2D playerRigidbody;
+
+    private bool hasFlippedGravity;
+    private bool canFlipGravity;
 
     public Vector2 moveDirection;
     public float moveSpeed;
@@ -28,25 +32,34 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerMovement()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (hasFlippedGravity == false)
+            {
+                playerRigidbody.gravityScale = -5;
+                hasFlippedGravity = true;
+            }
+            else
+            {
+                playerRigidbody.gravityScale = 5;
+                hasFlippedGravity = false;
+            }
+        }
+
         if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Player went left!");
             moveDirection = new Vector2(-1, 0);
 
-            playerRigidbody.MovePosition(playerRigidbody.position + moveDirection * moveSpeed * Time.deltaTime);
+            playerRigidbody.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, playerRigidbody.velocity.y);
         }
 
         if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            Debug.Log("Player went right!");
             moveDirection = new Vector2(1, 0);
 
-            playerRigidbody.MovePosition(playerRigidbody.position + moveDirection * moveSpeed * Time.deltaTime);
+            playerRigidbody.velocity = new Vector2(moveDirection.x * moveSpeed * Time.deltaTime, playerRigidbody.velocity.y);
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Player Reversed Gravity!");
-        }
+
     }
 }

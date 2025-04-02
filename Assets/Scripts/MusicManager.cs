@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class MusicManager : MonoBehaviour
 {
     public AudioSource themeMusic;
 
